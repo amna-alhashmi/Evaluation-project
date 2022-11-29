@@ -2,21 +2,31 @@ package APIProject;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Scanner;
-
+import java.util.Set;
+import java.util.concurrent.locks.AbstractQueuedLongSynchronizer.ConditionObject;
+import java.nio.file.Files;  
+import java.nio.file.Paths;  
+import java.util.Scanner;  
 import com.google.gson.Gson;
 
 import APIProject.ApiExce;
 
 public class MainEvaluation {
+
+	private static final String JSONValue = null;
+	private static final Set<String> UserInputSet = null;
 
 	public static void main(String[] args) throws IOException {
 		boolean menuExit = true;
@@ -96,10 +106,88 @@ public class MainEvaluation {
 				}
 
 				break;
-		
+			case 3:
+			
+				File dir = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
+				FilenameFilter textFilter = new FilenameFilter() {
+				           public boolean accept(File dir, String name) {
+				               return name.toLowerCase().endsWith(".txt");
+				           }
+				       };
+				       File[] files = dir.listFiles(textFilter);
+				       for (File file1 : files) {
+				           if (file1.isDirectory()) {
+				               System.out.print("directory:");
+				           } else {
+				               System.out.print("     file:");
+				           }
+				           System.out.println(file1.getCanonicalPath());
+				       }
+				       
+				       Set<String> words1 = new HashSet<>();
+				File f1=new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\EvaluationJson.txt");
+				     String[] words=null;  
+				     FileReader fr1 = new FileReader(f1);  
+				     BufferedReader br1 = new BufferedReader(fr1); 
+				     String s;    
+				        System.out.println("PLS WRITE WHAT YOU WANT TO SEARCH?");
+
+				     String input1=sa.next();
+				     
+				     if (words1.contains(input1)) {
+				         System.out.println("You gave the word " + words + " twice");
+				         break; // end the programm if the word exists twice
+				     }
+				     words1.add(input1);
+				     int count=0;   
+				     while((s=br1.readLine())!=null)   
+				     {
+				        words=s.split(" "); 
+				       
+				        for(File c: files) {
+				         for (String word : words)
+				         {
+				                if (word.equals(input1))   
+				                {
+				        System.out.println("The Word is : \t"+input1+"\t the file is :\t "+c);
+
+				                  count++;    
+
+				                }
+				         }
+				        }
+				     }
+				  
+				     
+				     if(count!=0)  
+				    	 
+				     {
+				        System.out.println("The given word is present for "+count+ " Times in the file");
+				       
+				     }
+				     else
+				     {
+				        System.out.println("The given word is not present in the file");
+				     }
+				     
+				     fr1.close();
+				    
+				
+				
+				
+				
+				
+				break;
 			}
 
-		}
-		menuExit = false;
-	}
+		
+
+	
+	}menuExit = false;
+}
+
+private static String convertFileIntoString(String string) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }
