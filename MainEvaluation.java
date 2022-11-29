@@ -1,5 +1,13 @@
 package APIProject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
@@ -10,49 +18,88 @@ import APIProject.ApiExce;
 
 public class MainEvaluation {
 
+	public static void main(String[] args) throws IOException {
+		boolean menuExit = true;
+		Scanner sa = new Scanner(System.in);
+		while (menuExit) {
+			System.out.println("PLS SELECTE ONE OPTION:");
+			System.out.println("1.READ json");
+			System.out.println("2.WRITE JSON IN THE FILE");
+			System.out.println("3.SEARCH FROM FILE");
+			String menu = sa.next();
+			int option = Integer.parseInt(menu);
+			switch (option) {
+			case 1:
 
+				try {
+					URL url = new URL("https://ipinfo.io/161.185.160.93/geo");
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setRequestMethod("GET");
+					conn.connect();
+					StringBuilder informationString = new StringBuilder();
+					int responseCode = conn.getResponseCode();
+					if (responseCode != 200) {
+						throw new RuntimeException("HttpresponseCode" + responseCode);
 
-	public static void main(String[] args) {
-		try {
-		URL url = new URL("https://ipinfo.io/161.185.160.93/geo");
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("GET");
-		conn.connect();
-		StringBuilder informationString = new StringBuilder();
-		int responseCode = conn.getResponseCode();
-		if (responseCode != 200) {
-			throw new RuntimeException("HttpresponseCode" + responseCode);
+					} else {
 
-		} else {
+						Scanner scanner = new Scanner(url.openStream());
+						while (scanner.hasNext()) {
+							informationString.append(scanner.nextLine());
+						}
+						scanner.close();
+						System.out.println(informationString);
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+				break;
 
-			Scanner scanner = new Scanner(url.openStream());
-			while (scanner.hasNext()) {
-				informationString.append(scanner.nextLine());
-			}
-			scanner.close();
-			System.out.println(informationString);
-			Gson gson = new Gson();
-			ApiExce MainEvaluation = gson.fromJson(informationString.toString(), ApiExce.class);
-			
+			case 2:
+				try {
+					URL url = new URL("https://ipinfo.io/161.185.160.93/geo");
+					HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+					conn.setRequestMethod("GET");
+					conn.connect();
+					StringBuilder informationString = new StringBuilder();
+					int responseCode = conn.getResponseCode();
+					if (responseCode != 200) {
+						throw new RuntimeException("HttpresponseCode" + responseCode);
 
-				System.out.println("##################################");
-				System.out.println("The IP Is : " + MainEvaluation.getDetails().get(0).getIp());
-				System.out.println("The CITY Is : " + MainEvaluation.getDetails().get(0).getCity());
-				System.out.println("The REGION Is : " + MainEvaluation.getDetails().get(0).getRegion());
-				System.out.println("The LOC Is : " + MainEvaluation.getDetails().get(0).getLoc());
-				System.out.println("The ORG Is : " + MainEvaluation.getDetails().get(0).getOrg());
-				System.out.println("The POSTAL Is : " + MainEvaluation.getDetails().get(0).getPostal());
-				System.out.println("The TIMEZONE Is : " + MainEvaluation.getDetails().get(0).getTimezone());
-				System.out.println("The README Is : " + MainEvaluation.getDetails().get(0).getReadme());
-				System.out.println("#################################");
-		}
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-			
+					} else {
+
+						Scanner scanner = new Scanner(url.openStream());
+						while (scanner.hasNext()) {
+							informationString.append(scanner.nextLine());
+						}
+						scanner.close();
+						System.out.println(informationString);
+					}
+
+					FileWriter filewriter = new FileWriter("EvaluationJson.txt");
+					filewriter.write(informationString.toString());
+					filewriter.close();
+
+					FileReader read = new FileReader("EvaluationJson.txt");
+					BufferedReader buffeRedreader = new BufferedReader(read);
+					String line;
+					while ((line = buffeRedreader.readLine()) != null) {
+						System.out.println(line);
+					}
+					read.close();
+
+					System.out.println("THE FILE IS CREATE");
+					System.out.println("Successful");
+
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+
+				break;
 		
+			}
+
 		}
-
+		menuExit = false;
 	}
-
-
+}
