@@ -12,16 +12,24 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.locks.AbstractQueuedLongSynchronizer.ConditionObject;
-import java.nio.file.Files;  
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;  
 import java.util.Scanner;  
 import com.google.gson.Gson;
 
 import APIProject.ApiExce;
+//import school.Student;
 
 public class MainEvaluation {
 
@@ -29,6 +37,14 @@ public class MainEvaluation {
 	private static final Set<String> UserInputSet = null;
 
 	public static void main(String[] args) throws IOException {
+		final String path="C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\EvaluationJson.txt";
+		
+		ArrayList<String> douplcate=new ArrayList<>();
+		//ArrayList<Student> studentEmail = new ArrayList<>();
+		//ArrayList<String> emailList = new ArrayList<>();
+		HashSet<String> eList = new HashSet<>();
+		HashMap<String, Double> amountList = new HashMap<String, Double>();
+		HashMap<String, HashMap<String, Double>> studentAmountList = new HashMap<>();
 		boolean menuExit = true;
 		Scanner sa = new Scanner(System.in);
 		while (menuExit) {
@@ -104,10 +120,49 @@ public class MainEvaluation {
 				} catch (Exception e) {
 					System.out.println(e);
 				}
-
+//				  Object obj = new JSONParser().parse(new FileReader("EvaluationJson.txt"));
+//		          
+//			        // typecasting obj to JSONObject
+//			        ConditionObject jo = (ConditionObject) obj;
+//			          
+//			        // getting firstName and lastName
+//			        String firstName = (String) jo.get("firstName");
+//			        String lastName = (String) jo.get("lastName");
+//			          
+//			        System.out.println(firstName);
+//			        System.out.println(lastName);
+//			          
+//			        // getting age
+//			        long age = (long) jo.get("age");
+//			        System.out.println(age);
+//			          
+//			        // getting address
+//			        Map address = ((Map)jo.get("address"));
+//			          
+//			        // iterating address Map
+//			        Iterator<Map.Entry> itr1 = address.entrySet().iterator();
+//			        while (itr1.hasNext()) {
+//			            Map.Entry pair = itr1.next();
+//			            System.out.println(pair.getKey() + " : " + pair.getValue());
+//			        }
+//			          
+//			        // getting phoneNumbers
+//			        JSONArray ja = (JSONArray) jo.get("phoneNumbers");
+//			          
+//			        // iterating phoneNumbers
+//			        Iterator itr2 = ja.iterator();
+//			          
+//			        while (itr2.hasNext()) 
+//			        {
+//			            itr1 = ((Map) itr2.next()).entrySet().iterator();
+//			            while (itr1.hasNext()) {
+//			                Map.Entry pair = itr1.next();
+//			                System.out.println(pair.getKey() + " : " + pair.getValue());
+//			            }
+//			        }
 				break;
 			case 3:
-			
+
 				File dir = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
 				FilenameFilter textFilter = new FilenameFilter() {
 				           public boolean accept(File dir, String name) {
@@ -124,21 +179,32 @@ public class MainEvaluation {
 				           System.out.println(file1.getCanonicalPath());
 				       }
 				       
+				       
+				       
+				       
+				       
+				       
 				       Set<String> words1 = new HashSet<>();
 				File f1=new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\EvaluationJson.txt");
+				Scanner Scanner=new Scanner(f1);
+				Path fetchFile= Paths.get(path);
+				while(Scanner.hasNextLine())
+				{
+					Files.writeString(fetchFile, Scanner.nextLine().replaceAll("\\W", " "),StandardCharsets.UTF_8); 
+				}
 				     String[] words=null;  
 				     FileReader fr1 = new FileReader(f1);  
 				     BufferedReader br1 = new BufferedReader(fr1); 
 				     String s;    
+				     
 				        System.out.println("PLS WRITE WHAT YOU WANT TO SEARCH?");
 
-				     String input1=sa.next();
+				     String input=sa.next();
+				     Set<String> input1 = new HashSet<>();
+				     input1.add(input);
+				     System.out.println(input1);
 				     
-				     if (words1.contains(input1)) {
-				         System.out.println("You gave the word " + words + " twice");
-				         break; // end the programm if the word exists twice
-				     }
-				     words1.add(input1);
+				   
 				     int count=0;   
 				     while((s=br1.readLine())!=null)   
 				     {
@@ -147,10 +213,13 @@ public class MainEvaluation {
 				        for(File c: files) {
 				         for (String word : words)
 				         {
-				                if (word.equals(input1))   
+				                if (word.equals(input))   
 				                {
-				        System.out.println("The Word is : \t"+input1+"\t the file is :\t "+c);
+				        System.out.println("The Word is : \t"+input+"\t the file is :\t "+c);
+				        
 
+					    		
+					    		 
 				                  count++;    
 
 				                }
