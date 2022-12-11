@@ -1,9 +1,11 @@
 package APIProject;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
@@ -11,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 import java.net.HttpURLConnection;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,6 +55,7 @@ public class MainEvaluation {
 			System.out.println("1.READ json");
 			System.out.println("2.WRITE JSON IN THE FILE");
 			System.out.println("3.SEARCH FROM FILE");
+			System.out.println("4.ask");
 			String menu = sa.next();
 			int option = Integer.parseInt(menu);
 			switch (option) {
@@ -221,7 +225,7 @@ public class MainEvaluation {
 					    		
 					    		 
 				                  count++;    
-
+				                
 				                }
 				         }
 				        }
@@ -247,13 +251,273 @@ public class MainEvaluation {
 				
 				
 				break;
+			case 4:
+				String text="TXT";
+				System.out.println("CHOICE WHAT YOU WANT PDF OF TXT");
+				String txt=sa.next();
+				if (txt.contains("txt")) {
+					File dir1 = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
+					FilenameFilter textFilter1 = new FilenameFilter() {
+					           public boolean accept(File dir, String name) {
+					               return name.toLowerCase().endsWith(".txt");
+					           }
+					       };
+					       File[] files1 = dir1.listFiles(textFilter1);
+					       for (File file1 : files1) {
+					           if (file1.isDirectory()) {
+					               System.out.print("directory:");
+					           } else {
+					               System.out.print("     file:");
+					           }
+					           System.out.println(file1.getCanonicalPath());
+					       }
+					       
+					       Set<String> words12 = new HashSet<>();
+					File f2=new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\EvaluationJson.txt");
+					Scanner Scanner2=new Scanner(f2);
+					Path fetchFile2= Paths.get(path);
+					while(Scanner2.hasNextLine())
+					{
+						Files.writeString(fetchFile2, Scanner2.nextLine().replaceAll("\\W", " "),StandardCharsets.UTF_8); 
+					}
+					     String[] words11=null;  
+					     FileReader fr2 = new FileReader(f2);  
+					     BufferedReader br12 = new BufferedReader(fr2); 
+					     String s1;    
+					     
+					        System.out.println("PLS WRITE WHAT YOU WANT TO SEARCH?");
+
+					     String input11=sa.next();
+					     Set<String> input12 = new HashSet<>();
+					     input12.add(input11);
+					     System.out.println(input12);
+					     
+					   
+					     int count1=0;   
+					     while((s=br12.readLine())!=null)   
+					     {
+					        words=s.split(" "); 
+					       
+					        for(File c: files1) {
+					         for (String word : words)
+					         {
+					                if (word.equals(input11))   
+					                {
+					        System.out.println("The Word is : \t"+input11+"\t the file is :\t "+c);
+					        
+
+						    		
+						    		 
+					                  count1++; 
+					                  
+					               
+					                }
+					         }
+					        }
+					     }
+					  
+					     
+					     if(count1!=0)  
+					    	 
+					     {
+					        System.out.println("The given word is present for "+count1+ " Times in the file");
+					       
+					     }
+					     else
+					     {
+					        System.out.println("The given word is not present in the file");
+					     }
+					     
+					     fr2.close();
+				}else {
+					File dir1 = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
+					FilenameFilter textFilter1 = new FilenameFilter() {
+					           public boolean accept(File dir, String name) {
+					               return name.toLowerCase().endsWith(".pdf");
+					           }
+					       };
+					       File[] files1 = dir1.listFiles(textFilter1);
+					       for (File file1 : files1) {
+					           if (file1.isDirectory()) {
+					               System.out.print("directory:");
+					           } else {
+					               System.out.print("     file:");
+					           }
+					           System.out.println(file1.getCanonicalPath());
+					       }
+					       
+					         
+					       System.out.println("PLS WRITE WHAT YOU WANT TO SEARCH?");
+						     String input11=sa.next();
+						     sa.nextLine();
+						     boolean word12=false;
+						     int count1=0; 
+						     Scanner sca2=new Scanner(new FileInputStream("sample.pdf")); 
+						    
+						     while(sca2.hasNextLine())
+						     //File f2=new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample.pdf");
+								
+								 { 
+									String words11=sca2.nextLine(); 
+									if (words11.indexOf(input11)!= -1) { 
+										word12=true;
+										count1=count1+1;
+										   File file2 = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
+							     	         
+							  		        // renaming the file and moving it to a new location
+							  		        if(file2.renameTo
+							  		           (new File("C:\\")))
+							  		        {
+							  		            // if file copied successfully then delete the original file
+							  		            file2.delete();
+							  		            System.out.println("File moved successfully");
+							  		        }
+							  		        else
+							  		        {
+							  		            System.out.println("Failed to move the file");
+							  		        }
+									}
+								 }
+				}
+				break;
 			}
 
 		
-
+		
 	
 	}menuExit = false;
 }
+//						     if(word12) {
+//						    	  System.out.println("The given word is present for "+count1+ " Times in the file");
+//						    	  Path temp=Files.copy(Paths.get("C:\\Users\\user008\\Desktop\\sample.pdf"),Paths.get("C:\\Users\\user008\\Desktop\\pdf\\sample2.pdf"));
+//						    	 if(temp!=null) {
+//						    		 System.out.println("pdf file contain the word");
+//						     }else {
+//						    	 System.out.println("pdf file does not contain the word");
+//						     }
+						    	 
+						    	 
+						    	 
+			
+//								     FileReader fr2 = new FileReader(f2);  
+//								     BufferedReader br12 = new BufferedReader(fr2); 
+//								     String s1;  	
+//								      
+//								     for(File c: files1) {
+//								         //for (String word : words11)
+//								         {
+//								                  
+//								                {
+//								        System.out.println("The Word is : \t"+input11+"\t the file is :\t "+c);
+//								         count1++;   
+//								                }
+//								         }
+//								        }
+//								     
+//								                  if(count1!=0)  
+//												    	 
+//												     {
+//												        System.out.println("The given word is present for "+count1+ " Times in the file");
+//												       
+//												     }
+//												     else
+//												     {
+//												        System.out.println("The given word is not present in the file");
+//												     }
+//												     
+//												     fr2.close();
+//								                }
+
+									    		
+									    		 
+								                  
+				//}
+			
+//								     while((s=br12.readLine())!=null)   
+//								     {
+//								        words=s.split(" "); 
+								       
+								       
+								         
+								        
+								     
+				
+								
+								
+			
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+//					 URL url1 = new URL("https://ipinfo.io/161.185.160.93/geo");
+//			
+//										    byte[] ba1 = new byte[1024];
+//										    int baLength;
+//										    FileOutputStream fos1 = new FileOutputStream("pdf-sample.pdf");
+//										    if (Desktop.isDesktopSupported()) {
+//									             try {
+//									                    URL url = new URL(null);
+//									                    File myFile = new File(url.toURI());
+//									                    Desktop.getDesktop().open(myFile);
+//									            } catch (IOException | URISyntaxException ex) {
+//									                        // no application registered for PDFs
+//									                }
+//									            }
+//										    
+//										    
+//										    
+//										    
+//											try {
+//												URL url = new URL("https://ipinfo.io/161.185.160.93/geo");
+//												HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//												conn.setRequestMethod("GET");
+//												conn.connect();
+//												StringBuilder informationString = new StringBuilder();
+//												int responseCode = conn.getResponseCode();
+//												if (responseCode != 200) {
+//													throw new RuntimeException("HttpresponseCode" + responseCode);
+//					
+//												} else {
+//					
+//													Scanner scanner = new Scanner(url.openStream());
+//													while (scanner.hasNext()) {
+//														informationString.append(scanner.nextLine());
+//													}
+//													scanner.close();
+//													System.out.println(informationString);
+//												}
+//												FileWriter filewriter = new FileWriter("ApiInPdf.pdf");
+//												filewriter.write(informationString.toString());
+//												filewriter.close();
+//					
+//												FileReader read = new FileReader("ApiInPdf.pdf");
+//												BufferedReader buffeRedreader = new BufferedReader(read);
+//												String line;
+//												while ((line = buffeRedreader.readLine()) != null) {
+//													System.out.println(line);
+//												}
+//												read.close();
+//					
+//												System.out.println("THE FILE IS CREATE");
+//												System.out.println("Successful");
+//											} catch (Exception e) {
+//												System.out.println(e);
+//											}
+				
+
+					    
+				
+				
+				
+				
+	
 
 private static String convertFileIntoString(String string) {
 	// TODO Auto-generated method stub
