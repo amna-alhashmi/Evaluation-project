@@ -24,12 +24,16 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.concurrent.locks.AbstractQueuedLongSynchronizer.ConditionObject;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.text.PDFTextStripper;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;  
 import java.util.Scanner;  
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 
 import APIProject.ApiExce;
 //import school.Student;
@@ -42,12 +46,12 @@ public class MainEvaluation {
 	public static void main(String[] args) throws IOException {
 		final String path="C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\EvaluationJson.txt";
 		
-		ArrayList<String> douplcate=new ArrayList<>();
+		//ArrayList<String> douplcate=new ArrayList<>();
 		//ArrayList<Student> studentEmail = new ArrayList<>();
 		//ArrayList<String> emailList = new ArrayList<>();
-		HashSet<String> eList = new HashSet<>();
-		HashMap<String, Double> amountList = new HashMap<String, Double>();
-		HashMap<String, HashMap<String, Double>> studentAmountList = new HashMap<>();
+//		HashSet<String> eList = new HashSet<>();
+//		HashMap<String, Double> amountList = new HashMap<String, Double>();
+//		HashMap<String, HashMap<String, Double>> studentAmountList = new HashMap<>();
 		boolean menuExit = true;
 		Scanner sa = new Scanner(System.in);
 		while (menuExit) {
@@ -252,6 +256,7 @@ public class MainEvaluation {
 				
 				break;
 			case 4:
+				try {
 				String text="TXT";
 				System.out.println("CHOICE WHAT YOU WANT PDF OF TXT");
 				String txt=sa.next();
@@ -358,43 +363,95 @@ public class MainEvaluation {
 						     //File f2=new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample.pdf");
 								
 								 { 
-									String words11=sca2.nextLine(); 
-									if (words11.indexOf(input11)!= -1) { 
+									String words10=sca2.nextLine(); 
+									if (words10.indexOf(input11)!= -1) { 
 										word12=true;
 										count1=count1+1;
-										   File file2 = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
-							     	         
-							  		        // renaming the file and moving it to a new location
-							  		        if(file2.renameTo
-							  		           (new File("C:\\")))
-							  		        {
-							  		            // if file copied successfully then delete the original file
-							  		            file2.delete();
-							  		            System.out.println("File moved successfully");
-							  		        }
-							  		        else
-							  		        {
-							  		            System.out.println("Failed to move the file");
-							  		        }
+										
+										
+//										 String[] words12=null;  
+								     FileReader fr11 = new FileReader(dir1);  
+								     BufferedReader br2 = new BufferedReader(fr11); 
+//									     String s1; 
+									     
+										 while((s=br2.readLine())!=null)   
+									     {
+									        words=s.split(" "); 
+									       
+									        for(File c: files1) {
+									     
+								 
+						     if(word12) {
+						    	  System.out.println("The given word is present for "+count1+" Times in the file"+c);
+						     }
+									        }
+									     }
+						    	  Path temp=Files.copy(Paths.get("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample.pdf"),Paths.get("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample2.pdf"));
+						    	 if(temp!=null) {
+						    		 System.out.println("pdf file contain the word");
+						     }else {
+						    	 System.out.println("pdf file does not contain the word");
+						     }
+									   
 									}
 								 }
+						     
 				}
-				break;
-			}
+				} catch (Exception e) {
+					System.out.println(e);
+				}
+									break;
+						     
 
-		
+			}
 		
 	
 	}menuExit = false;
 }
+						     
+						     
+						     
 //						     if(word12) {
-//						    	  System.out.println("The given word is present for "+count1+ " Times in the file");
-//						    	  Path temp=Files.copy(Paths.get("C:\\Users\\user008\\Desktop\\sample.pdf"),Paths.get("C:\\Users\\user008\\Desktop\\pdf\\sample2.pdf"));
-//						    	 if(temp!=null) {
-//						    		 System.out.println("pdf file contain the word");
-//						     }else {
-//						    	 System.out.println("pdf file does not contain the word");
+//						    	 System.out.println("The number of word is:"+count1);
+//						    	 Path temp=Files.copy(Paths.get("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample.pdf"),Paths.get("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject\\sample1.pdf"));
 //						     }
+//						     if(temp=null) {
+//										   //File file2 = new File("C:\\Users\\user008\\eclipse-workspace\\EvaluationProject");
+//							     	         
+//							  		        // renaming the file and moving it to a new location
+////							  		        if(file1.renameTo
+////							  		           (new File("sample2.pdf")))
+////							  		        {
+////							  		            // if file copied successfully then delete the original file
+////							  		            //file2.delete();
+//							  		            System.out.println("File moved successfully");
+//							  		        }
+//							  		        else
+//							  		        {
+//							  		            System.out.println("Failed to move the file");
+//							  		        }
+//									}
+//								 }
+//					  System.out.println("Enter File You Want to Use");
+//					    Scanner scanner = new Scanner(System.in);
+//					    String fileToUse = scanner.next();
+//					    PDDocument pdDocument = PDDocument.load(new File(System.getProperty("user.dir") + "\\" + fileToUse + ".pdf"));
+//					    PDFTextStripper textStripper = new PDFTextStripper();
+//					    String textFromFile = textStripper.getText(pdDocument);
+//					    System.out.println("Enter Word You Want to Search\n");
+//					    Scanner scannerObject = new Scanner(System.in);
+//					    String wordToSearch = scannerObject.next();
+//					    if(textFromFile.contains(wordToSearch)){
+//					        System.out.println(wordToSearch + " found!!");
+//					    } else {
+//					        System.out.println(wordToSearch + " Not found");
+//					    }
+//					    pdDocument.close();
+
+					
+				
+	
+						    
 						    	 
 						    	 
 						    	 

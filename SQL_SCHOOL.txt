@@ -1,0 +1,44 @@
+CREATE TABLE SCHOOL(
+ school_id INT 	primary KEY,
+ school_name VARCHAR (20),
+   school_address text  ,
+   school_phone varchar(10)
+); 
+show tables;
+select * from school;
+
+create TABLE STUDENTS(
+ student_id INT 	primary KEY,
+ student_name VARCHAR (20),
+   student_age INT
+); 
+Show tables;
+select * from STUDENTS;
+
+create TABLE subjects(
+ subject_code VARCHAR(20) primary KEY,
+ subject_name VARCHAR (20)
+); 
+show tables;
+select * from subjects;
+
+create TABLE MARKS(
+ MARK_ID INT 	primary KEY,
+Quiz1_mark tinyint,
+Quiz2_mark tinyint,
+Midtearm_mark tinyint,
+final_mark tinyint
+
+); 
+show tables;
+select * from MARKS;
+ 
+ ALTER TABLE STUDENTS ADD school_id INT REFERENCES SCHOOL (school_id);
+ 
+ ALTER TABLE subjects ADD student_id INT  REFERENCES STUDENTS (student_id);
+ 
+  ALTER TABLE MARKS ADD subject_code VARCHAR(20) REFERENCES subjects (subject_code);
+ 
+ select * from STUDENTS;
+  select * from subjects;
+ select * from MARKS;
